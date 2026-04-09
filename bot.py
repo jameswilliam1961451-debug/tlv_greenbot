@@ -24,7 +24,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 if __name__ == '__main__':
     # Get token from environment variable for security
-    TOKEN = os.environ.get("TELEGRAM_TOKEN")
+    TOKEN = os.environ.get("8681057549:AAETMdJmDoH8mN_74cnSMX7T6PbN6p8E1i4")
     
     if not TOKEN:
         print("Error: No TELEGRAM_TOKEN found in environment variables.")
