@@ -14,8 +14,7 @@ logger = logging.getLogger(__name__)
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Your new bilingual welcome message
     welcome_text = (
-        "សួស្តី 👋\n"
-        "សូមស្វាគមន៍មកកាន់ STN Help Center។\n\n"
+    
         "ברוכים הבאים 👋\n\n"
         "תודה שפנית אלינו! אנחנו כאן כדי לעזור לך למצוא את הפתרון המתאים לצרכים שלך.\n\n"
         "אתה יכול:\n"
