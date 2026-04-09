@@ -3,14 +3,13 @@ import logging
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 
-# Set up logging
-logging.basicConfig(
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    level=logging.INFO
-)
+# Log to the Render console
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    welcome_text = (
+    logger.info("RECEIVED /START COMMAND")
+    text = (
         "ברוכים הבאים 👋\n\n"
         "תודה שפנית אלינו!\n"
         "אנחנו כאן כדי לעזור לך למצוא את הפתרון המתאים לצרכים שלך.\n\n"
@@ -20,19 +19,17 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "• לבצע הזמנה או לבקש תמיכה\n\n"
         "או פשוט לשלוח הודעה - נענה בקרוב ✅"
     )
-    await update.message.reply_text(welcome_text)
+    await update.message.reply_text(text)
 
 if __name__ == '__main__':
-    # Get token from environment variable for security
-    TOKEN = os.environ.get("8681057549:AAETMdJmDoH8mN_74cnSMX7T6PbN6p8E1i4")
+    TOKEN = os.environ.get("TELEGRAM_TOKEN")
     
     if not TOKEN:
-        print("Error: No TELEGRAM_TOKEN found in environment variables.")
+        logger.error("FATAL: No TELEGRAM_TOKEN found in Environment Variables!")
     else:
+        logger.info("--- BOT IS STARTING NOW ---")
         app = ApplicationBuilder().token(TOKEN).build()
-        
-        # Add the /start command handler
         app.add_handler(CommandHandler("start", start))
         
-        print("Bot is running...")
-        app.run_polling()
+        # This is the 'heartbeat' for Render
+        app.run_polling(drop_pending_updates=True)
